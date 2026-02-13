@@ -1,0 +1,8 @@
+{
+  "max_ep_len": 600,
+  "n_tasks": 3,
+  "task_name": "wind",
+  "total_timesteps": 7000,
+  "context_size": 28,
+  "eval_freq": 50
+}

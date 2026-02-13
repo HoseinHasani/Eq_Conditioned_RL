@@ -1,0 +1,8 @@
+{
+  "max_ep_len": 1000,
+  "n_tasks": 3,
+  "task_name": "joint",
+  "total_timesteps": 20000,
+  "context_size": 99,
+  "eval_freq": 1000
+}

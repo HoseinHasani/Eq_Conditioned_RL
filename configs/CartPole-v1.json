@@ -1,0 +1,8 @@
+{
+  "max_ep_len": 500,
+  "n_tasks": 2,
+  "task_name": "rotation",
+  "total_timesteps": 40000,
+  "context_size": 30,
+  "eval_freq": 2000
+}
