@@ -4,5 +4,13 @@
   "task_name": "rotation",
   "total_timesteps": 15000,
   "context_size": 20,
-  "eval_freq": 1000
+  "eval_freq": 1000,
+  "baseline": {
+    "data_steps": 20000,
+    "batch_size": 512,
+    "epochs": 20,
+    "lr": 0.001,
+    "hidden_dims": [128, 64],
+    "save_path": "baselines/Pendulum-v1_stationary.pt"
+  }
 }

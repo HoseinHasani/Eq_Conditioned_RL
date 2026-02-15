@@ -4,5 +4,13 @@
   "task_name": "joint",
   "total_timesteps": 60000,
   "context_size": 432,
-  "eval_freq": 5000
+  "eval_freq": 5000,
+  "baseline": {
+    "data_steps": 50000,
+    "batch_size": 1024,
+    "epochs": 25,
+    "lr": 0.001,
+    "hidden_dims": [160, 80],
+    "save_path": "baselines/HalfCheetah-v4_stationary.pt"
+  }
 }
