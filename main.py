@@ -114,6 +114,8 @@ parser.add_argument('--baseline_data_steps', type=int, default=None,
                     help='Number of steps for stationary baseline dataset collection.')
 parser.add_argument('--baseline_hidden_dims', type=str, default=None,
                     help='Comma-separated hidden layer sizes for baseline MLP, e.g. "128,128".')
+parser.add_argument('--use_nn_baseline', type=str_to_bool, default=True,
+                    help='Whether to use the NN stationary baseline when inference=sr_residual_nn.')
 
 args = parser.parse_args()
 
@@ -142,14 +144,22 @@ elif args.inference == 'vae':
 elif args.inference == 'sr':
     task_inference = SymbolicRegressionInference(context_size=context_size)
 elif args.inference == 'sr_residual_nn':
-    baseline_model, baseline_ckpt = resolve_baseline(args, config)
-    task_inference = SymbolicRegressionInference(
-        context_size=context_size,
-        baseline_model=baseline_model,
-        residual_mode='nn_delta',
-        residual=True,
-    )
-    print(f"[inference] using residual symbolic regression with baseline: {baseline_ckpt}")
+    if args.use_nn_baseline:
+        baseline_model, baseline_ckpt = resolve_baseline(args, config)
+        task_inference = SymbolicRegressionInference(
+            context_size=context_size,
+            baseline_model=baseline_model,
+            residual_mode='nn_delta',
+            residual=True,
+        )
+        print(f"[inference] using residual symbolic regression with baseline: {baseline_ckpt}")
+    else:
+        task_inference = SymbolicRegressionInference(
+            context_size=context_size,
+            residual_mode='none',
+            residual=True,
+        )
+        print("[inference] sr_residual_nn selected with --use_nn_baseline false; running SR without baseline subtraction.")
 elif args.inference == 'oracle':
     task_inference = OracleInference(task_size=n_tasks)
 
